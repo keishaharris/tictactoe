@@ -31,35 +31,25 @@ let spaces = [];
 const tick_x = 'X';
 const tick_o = 'O';
 let currentPlayer = tick_x;
-let draw = 0;
 
-const boxClicked = (e, draw) => {
+const boxClicked = (e) => {
 	let id = e.target.id;
 	if (!spaces[id]) {
-		console.log(spaces[id]);
 		spaces[id] = currentPlayer;
 		e.target.innerText = currentPlayer;
 		
 
 		if (playerWon()) {
 			winner.innerText = `${currentPlayer} won!`;
-			//	replay();
-			return;
+			replay();
 		}
+
+		tieGame();
 	
-		if (tieGame(draw)) {
-			winner.innerText = `Game Over! Tie!`;
-			// replay();
-			return;
-		}
-		draw++;
-		console.log(draw);
 	currentPlayer = currentPlayer === tick_x ? tick_o : tick_x;
 	
 	}
-	return draw;
 };
-
 
 const playerWon = () => {
 	if (spaces[0] === currentPlayer && spaces[1] === currentPlayer  && spaces[2] === currentPlayer) {
@@ -96,22 +86,28 @@ const playerWon = () => {
 };
 
 
-const tieGame = (draw) => {
-	if (draw != 9) {
-		return false;
+const tieGame = () => {
+	let draw = 0;
+	spaces.forEach((space, i) => {
+		if (spaces[i] !== null) 
+			draw++;
+	})
+	if (draw === 9) {
+		winner.innerText = `Game Over! Tie!`;
+		replay();
 	}
-	else 
-		return true;
-};
+}
 
 const replay = () => {
-	spaces.forEach((space,i) => {
+	setTimeout(() => {
+		spaces.forEach((space,i) => {
 		spaces[i] = null;
 	});
 	cells.forEach((cell)=> {
 		cell.innerText='';
+		winner.innerText='';
 	});
-	winner.innerText='';
+}, 1000);
 };
 
 restart.addEventListener('click', replay);
