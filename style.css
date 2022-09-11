@@ -26,14 +26,15 @@ button{
 	cursor: pointer;
 }
 
-.grid-container{
+.grid{
 	display: grid;
-	grid-template-columns: 200px 200px 200px;
+	grid-template-columns: repeat(3, 1fr);
+	width: 75%;
 }
 
-.cell {
+.grid-cell {
 	color:  #E9853E;
-	font-size:  40px;
+	font-size:  60px;
 	font-family:'Red Hat Display', sans-serif;
 	font-weight:  800;
 	height:  150px;
@@ -41,5 +42,7 @@ button{
 	justify-content:  center;
 	display:  flex;
 	cursor: pointer;
+	border: 5px solid #FFC300;
+	margin: 2px;
 
 }
