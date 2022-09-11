@@ -115,25 +115,28 @@
 
 // TODO: Store Gameboard as an array inside of a Gameboard object.
 const Gameboard = (()=> {
-	const gameboard = ["x"];
+	const gameboard = [" "];
 	return{
 		gameboard
 	}
 })();
 
 // TODO: Store players in objects.
-const Player = (mark) => {
+const Player = (name, mark) => {
+	this.name = name;
 	this.mark = mark;
-	return{ mark }
+	return{ name, mark }
 	
 } 
 
 // TODO: Create the flow of the game. 
 const displayController = (() => {
 
-	const Player1 = Player("X");
-	const Player2 = Player("O");
+	const Player1 = Player('Player 1', "X");
+	const Player2 = Player('Player 2', "O");
+
 	let currentPlayer = Player1;
+	
 
 	const cell = document.querySelectorAll('.cell');
 	cell.forEach( cell => 
@@ -141,11 +144,14 @@ const displayController = (() => {
 			let id = e.target.id;
 
 			if (!cell[id]) {
-				cell[id] = currentPlayer;
+				Gameboard.gameboard[id] = currentPlayer;
 				e.target.innerText = currentPlayer.mark;
 				console.log(currentPlayer.mark)
-
+				
+				checkWinner();
 				switchPlayer();
+				
+				
 			}
 			 
 		})
@@ -158,8 +164,41 @@ const displayController = (() => {
 	}
 
 	//TODO: create winning combo
+	const winCombo = [
+		[0,1,2],
+		[3,4,5],
+		[6,7,8],
+		[0,3,6],
+		[1,4,7],
+		[2,5,8],
+		[0,4,8],
+		[2,4,6]
+	];
 	 
 	//TODO: check winner
+	const checkWinner = () => {
+
+		// Pseudocode
+
+		// Iterate through each winning combo 
+		winCombo.forEach(combo => {
+
+			// Check if board cells has same Player mark
+			let result = combo.every(index => Gameboard.gameboard[index] === currentPlayer)
+			
+			// If winning combo exists ...
+			if (result){
+				displaywinner();
+			}
+		})
+
+		// Declare winner to browser
+	const displaywinner = () => {
+				const winner = document.querySelector('#winner');
+				winner.innerText = `${currentPlayer.name} won!`;
+		}
+
+	}
 	//TODO: check tie
 
 	//TODO: restart Game
@@ -173,6 +212,7 @@ const displayController = (() => {
 			winner.innerText='';
 		});
 		}, 1);
+		currentPlayer = Player1;
 		};
 
 	restart.addEventListener('click', replay); 
