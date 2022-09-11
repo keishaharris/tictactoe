@@ -6,8 +6,9 @@ body {
 
 h1 {
 	color: #E9853E;
-	font-size: 24px;
+	font-size: 44px;
 	font-family: 'Red Hat Display', sans-serif;
+	margin-top:50px;
 }
 
 section
@@ -45,4 +46,15 @@ button{
 	border: 5px solid #FFC300;
 	margin: 2px;
 
+}
+
+button {
+	border-style: none;
+	border: 5px solid #333A70;
+	background-color: #FCDA6D;
+	color:#E9853E;
+	font-size: 30px;
+	font-family: 'Lucida Grande';
+	text-transform: uppercase;
+	padding: 10px;
 }
