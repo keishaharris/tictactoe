@@ -136,8 +136,9 @@ const displayController = (() => {
 	const Player2 = Player('Player 2', "O");
 
 	let currentPlayer = Player1;
-	
 
+	let draw = 0;
+	
 	const cell = document.querySelectorAll('.cell');
 	cell.forEach( cell => 
 		cell.addEventListener('click', e => {
@@ -149,6 +150,8 @@ const displayController = (() => {
 				console.log(currentPlayer.mark)
 				
 				checkWinner();
+				console.log(Gameboard.gameboard)
+				checkTie();
 				switchPlayer();
 				
 				
@@ -178,8 +181,6 @@ const displayController = (() => {
 	//TODO: check winner
 	const checkWinner = () => {
 
-		// Pseudocode
-
 		// Iterate through each winning combo 
 		winCombo.forEach(combo => {
 
@@ -188,18 +189,24 @@ const displayController = (() => {
 			
 			// If winning combo exists ...
 			if (result){
-				displaywinner();
-			}
-		})
-
-		// Declare winner to browser
-	const displaywinner = () => {
+				// Declare winner to browser
 				const winner = document.querySelector('#winner');
 				winner.innerText = `${currentPlayer.name} won!`;
-		}
+			}
+
+		})
 
 	}
+
+	
 	//TODO: check tie
+	
+	const checkTie = () => {
+		draw++
+		if (draw === 9) {
+			winner.innerText = `Game Over! Tie!`;
+		}
+	}
 
 	//TODO: restart Game
 	const replay = () => {
@@ -213,6 +220,8 @@ const displayController = (() => {
 		});
 		}, 1);
 		currentPlayer = Player1;
+		Gameboard.gameboard=[" "];
+		draw = 0;
 		};
 
 	restart.addEventListener('click', replay); 
