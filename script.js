@@ -2,9 +2,7 @@ const winner = document.querySelector('#winner');
 const cells = document.querySelectorAll('.cell');
 const restart = document.querySelector('#restart');
 
-//const isWINNER = [[spaces[0],spaces[1],spaces[2]], [spaces[3],spaces[4],spaces[5]],[spaces[6],spaces[7],spaces[8]],
-//[spaces[0],spaces[3],spaces[3]],[spaces[2],spaces[5],spaces[8]],[spaces[1],spaces[4],spaces[7],[spaces[0],spaces[4],spaces[4]],
-//[spaces[2],spaces[4],spaces[6]]];
+
 
 const drawBoard = () => {
 	cells.forEach((cell, i) => {
@@ -114,3 +112,25 @@ restart.addEventListener('click', replay);
 
 
 drawBoard();
+
+// 1. Store Gameboard as an array inside of a Gameboard object.
+const Gameboard = (()=> {
+	const gameboard = ["","","",
+					   "","","",
+					   "","",""
+					];
+	return{gameboard}
+})();
+
+// 2. Store players in objects.
+const Player = (mark) => {
+	this.mark = mark;
+	return{ mark }
+	
+} 
+
+// 3. Create the flow of the game. 
+
+const displayController = (()  => {
+
+})
